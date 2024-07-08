@@ -14,6 +14,17 @@ def main():
     # Load the data
     df = pd.read_csv(args.input, delimiter='|', encoding='unicode_escape')
 
+    # TODO: Either fix the underlying data or come up with more elegant approach
+    df = df.drop_duplicates(subset=['SETTLEMENT DATE', 'SYMBOL'])
+
+    # get symbol counts before we fill zeros
+    symbol_counts = df['SYMBOL'].value_counts()
+
+    # For any combinations of SETTLEMENT DATE and SYMBOL we are missing, let's assume ZERO
+    all_combinations = pd.MultiIndex.from_product([df['SETTLEMENT DATE'].unique(), df['SYMBOL'].unique()],
+                                                names=['SETTLEMENT DATE', 'SYMBOL'])
+    df = df.set_index(['SETTLEMENT DATE', 'SYMBOL']).reindex(all_combinations, fill_value=0).reset_index()
+
     # Filter based on symbol if provided
     if args.symbol:
         filtered_df = df[df['SYMBOL'] == args.symbol].copy()
@@ -22,7 +33,7 @@ def main():
         symbol_counts = df['SYMBOL'].value_counts()
         valid_symbols = symbol_counts[symbol_counts >= args.min_entries].index
         filtered_df = df[df['SYMBOL'].isin(valid_symbols)].copy()
-
+    
     # Convert 'QUANTITY (FAILS)' to numeric for calculations
     filtered_df['QUANTITY (FAILS)'] = pd.to_numeric(filtered_df['QUANTITY (FAILS)'], errors='coerce')
 
