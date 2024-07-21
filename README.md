@@ -36,13 +36,13 @@ git clone https://github.com/modalblunder/ftd-analysis.git
     - Select "File->Open Folder"
     - Find the "ftd-analysis" folder we cloned from git
     - Open the folder
-- VS Code should notify you that it detects "Filder contains a Dev Container configuration..."
+- VS Code should notify you that it detects "Folder contains a Dev Container configuration..."
 - Go ahead and click on the button to "Open in Dev Container" (or "Reopen...")
 - The first time will take awhile, but this should be faster next time
 
 ### VSCode in the Dev Container
 - Now you can run the scripts within VSCode
-- In the menu bar, select "Terminal-New Terminal"
+- In the menu bar, select "Terminal->New Terminal"
 - Switch to pipenv shell, by running the following command in the terminal tab
 ```
 pipenv shell
