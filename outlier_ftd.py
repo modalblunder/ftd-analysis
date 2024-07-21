@@ -7,12 +7,24 @@ def main():
     parser.add_argument("--threshold", default=2.0, help="Threshold as std deviations from mean (above only)")
     parser.add_argument("--input", default='ftd_merged.txt.nogit', help="Name of the input FTD file (default: ftd_merged.txt.nogit)")
     parser.add_argument("--output", default="ftd_outliers.csv.nogit", help="Name of the output file to save the results.")
-    parser.add_argument("--min_entries", type=int, default=10, help="Minimum number of entries required for a symbol to be included (default: 10)")
+    parser.add_argument("--nofill", action="store_true", help="Enable nofill mode")
+    parser.add_argument("--min_entries", type=int, default=50, help="Minimum number of entries required for a symbol to be included (default: 10)")
     parser.add_argument("--symbol", help="Optional: Specify a symbol to filter results.")
+    parser.add_argument("--start", help="A start date using the ftd data format YYYYMMDD.")
+    parser.add_argument("--end", help="An end date using the ftd dta format YYYYMMDD.")
     args = parser.parse_args()
 
     # Load the data
     df = pd.read_csv(args.input, delimiter='|', encoding='unicode_escape')
+    df['SETTLEMENT DATE'] = pd.to_datetime(df['SETTLEMENT DATE'], format='%Y%m%d')
+
+    if args.start:
+        start_date = pd.to_datetime(args.start, format='%Y%m%d')
+        df = df[df['SETTLEMENT DATE'] >= start_date]
+
+    if args.end:
+        end_date = pd.to_datetime(args.end, format='%Y%m%d')
+        df = df[df['SETTLEMENT DATE'] <= end_date]
 
     # TODO: Either fix the underlying data or come up with more elegant approach
     df = df.drop_duplicates(subset=['SETTLEMENT DATE', 'SYMBOL'])
@@ -21,9 +33,16 @@ def main():
     symbol_counts = df['SYMBOL'].value_counts()
 
     # For any combinations of SETTLEMENT DATE and SYMBOL we are missing, let's assume ZERO
-    all_combinations = pd.MultiIndex.from_product([df['SETTLEMENT DATE'].unique(), df['SYMBOL'].unique()],
+    # TODO: Correct logic should only include zeros for entries newer than the oldest entry, per ticker
+    if args.nofill:
+        print("Nofill mode enabled!")
+        # Your code for the nofill scenario here
+    else:
+        print("Fill mode enabled. Proceeding normally, filling in zeros.")
+        # Your code for the default scenario here
+        all_combinations = pd.MultiIndex.from_product([df['SETTLEMENT DATE'].unique(), df['SYMBOL'].unique()],
                                                 names=['SETTLEMENT DATE', 'SYMBOL'])
-    df = df.set_index(['SETTLEMENT DATE', 'SYMBOL']).reindex(all_combinations, fill_value=0).reset_index()
+        df = df.set_index(['SETTLEMENT DATE', 'SYMBOL']).reindex(all_combinations, fill_value=0).reset_index()
 
     # Filter based on symbol if provided
     if args.symbol:

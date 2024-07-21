@@ -1,4 +1,104 @@
-# Analyzing FTD Data
+# General
+I initially was only focused on analyzing FTD data, but I've started adding little helper scripts in general.
+
+### download_ftd_data.sh
+A shell script to download the SEC zip files for FTD data. You can specify year and month ranges.
+
+### outlier_ftd.py
+Once you have an FTD data file, run analysis on the file to identify "spikes" of FTDs based on basic std. dev. analysis.
+
+### shares_oustanding.py
+A scraper to grab the shares outstanding (in thousands) of a list of specific tickers. Default list is ETFs for GME analysis.
+
+## Getting Started
+To attempt to make this as easy as possible, I have set this project up to use devcontainers, so you only have to install Docker and VSCode on your machine, and all other bits of software do not clutter up your operating system.
+
+### Install Docker
+[Download](https://www.docker.com/products/docker-desktop/) and install Docker Desktop for the type of machine you are using (Mac, Windows, etc.)
+
+### Install VSCode
+[Download](https://code.visualstudio.com/download) and install VSCode for the type of machine you are using (Mac, Windows, etc.)
+
+### Install Git
+[Download](https://git-scm.com/downloads) and install Git for your machine (see a trend)?
+
+### Clone the git repository
+- Open a terminal/command prompt on your computer (Windows command, Mac terminal, etc.)
+```
+git clone https://github.com/modalblunder/ftd-analysis.git
+```
+- This will create a new directory named "ftd-analysis" at the current working directory
+- Remember this location, you need to know it for the next step
+
+### Open the repository in VSCode
+- There are a few ways to do this but for the gui users:
+    - Open VS Code
+    - Select "File->Open Folder"
+    - Find the "ftd-analysis" folder we cloned from git
+    - Open the folder
+- VS Code should notify you that it detects "Filder contains a Dev Container configuration..."
+- Go ahead and click on the button to "Open in Dev Container" (or "Reopen...")
+- The first time will take awhile, but this should be faster next time
+
+### VSCode in the Dev Container
+- Now you can run the scripts within VSCode
+- In the menu bar, select "Terminal-New Terminal"
+- Switch to pipenv shell, by running the following command in the terminal tab
+```
+pipenv shell
+```
+- Now you can run the python scripts as you desire. Example
+```
+python shares_outstanding.py
+```
+
+### I have to do all this every time? (NO!)
+- Now you have the general environment setup, so next time all you have to do is the following
+    - Open VSCode
+    - Open the `ftd_analysis` folder
+    - VSCode will prompt if you want to Reopen the DevContainer (yes!)
+    - Open terminal and run the `pipenv shell` command to run python scripts
+
+# Get Outstanding Shares Data (shares_oustanding.py)
+By default, you can run this script without any parameters/arguments and it will grab data for the following ETF tickers: "XRT", "MDY", "FNDA", "IWB", "IWM", "IJH", "VTI", "VBR", "VXF". The output is in thousands.
+
+```
+python shares_oustanding.py
+
+XRT Shares Outstanding: 5800
+MDY Shares Outstanding: 39791
+FNDA Shares Outstanding: 150600
+IWB Shares Outstanding: 120100
+IWM Shares Outstanding: 321050
+IJH Shares Outstanding: 1431600
+VTI Shares Outstanding: 1535544
+VBR Shares Outstanding: 151030
+VXF Shares Outstanding: 109414
+```
+
+You can also specify tickers instead
+```
+python shares_oustanding.py GME MSFT
+GME Shares Outstanding: 351217
+MSFT Shares Outstanding: 7432306
+```
+
+# Downloading FTD Data Zips for a range (download_ftd_data.sh)
+For noobz, this does NOT need python, so you can just run it without going into `pipenv shell`
+
+Note that this is just a helper script to grab zip files. If you want to use this data with the outlier_ftd.py script, then there is some extra work to unzip the files and combine them into a single file. I may write a script, or modify this one, to do all that 'magic' at a later date.
+
+Example, grab 2024-01 through 2024-06
+```
+./download_ftd_data.sh 2024 01 2024 06
+```
+
+The above will download to the current directory, but you can also specific a directory name to keep things organized
+```
+./download_ftd_data.sh 2024 01 2024 06 temp_zips
+```
+
+# Analyzing FTD Data (outlier_ftd.py)
 Grabbing data for the past few years, from the SEC Fails-to-Deliver Data site, in order to analyze different stock symbols and their FTD volume.
 
 ## Data Set

@@ -163,3 +163,4 @@ cython_debug/
 
 # Personal ignore
 *.nogit
+.DS_Store
