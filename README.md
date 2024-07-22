@@ -11,7 +11,7 @@ Once you have an FTD data file, run analysis on the file to identify "spikes" of
 A scraper to grab the shares outstanding of a list of specific tickers. Default list is ETFs for GME analysis.
 
 ## Getting Started
-To attempt to make this as easy as possible, I have set this project up to use devcontainers, so you only have to install Docker and VSCode on your machine, and all other bits of software do not clutter up your operating system.
+To attempt to make this as easy as possible, I have set this project up to use devcontainers, so you only have to install 3 things: Docker, VSCode, and Git. This way all other bits of software do not clutter up your operating system.
 
 ### Install Docker
 [Download](https://www.docker.com/products/docker-desktop/) and install Docker Desktop for the type of machine you are using (Mac, Windows, etc.)
