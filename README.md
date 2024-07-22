@@ -8,7 +8,7 @@ A shell script to download the SEC zip files for FTD data. You can specify year 
 Once you have an FTD data file, run analysis on the file to identify "spikes" of FTDs based on basic std. dev. analysis.
 
 ### shares_oustanding.py
-A scraper to grab the shares outstanding (in thousands) of a list of specific tickers. Default list is ETFs for GME analysis.
+A scraper to grab the shares outstanding of a list of specific tickers. Default list is ETFs for GME analysis.
 
 ## Getting Started
 To attempt to make this as easy as possible, I have set this project up to use devcontainers, so you only have to install Docker and VSCode on your machine, and all other bits of software do not clutter up your operating system.
