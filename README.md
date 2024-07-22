@@ -116,15 +116,10 @@ I've also uploaded a larger aggregated dataset (ftd_merged_202012_2024061H.zip) 
 > :warning: The data is raw merged from the sec.gov site. I've noticed is has discrepencies and errors, so be careful with results
 
 # How to use
+- Make sure you already followed the above setup steps, the below will run in your devcontainer
 - Unzip the sample data
 ```
 unzip recent_ftds.zip
-```
-- Install Python3 (search google)
-    - Or run in the devcontainer
-- Install the dependencies from pip
-```
-pipenv install
 ```
 - Jump into pipenv shell
 ```
