@@ -62,21 +62,23 @@ python shares_outstanding.py
 # Get Outstanding Shares Data (shares_oustanding.py)
 By default, you can run this script without any parameters/arguments and it will grab data for the following ETF tickers: "XRT", "MDY", "FNDA", "IWB", "IWM", "IJH", "VTI", "VBR", "VXF". The output is in thousands.
 
-```
-python shares_oustanding.py
+Note: If you pass in the `--etf` flag, the scraping will be against tipranks.com, but it can only be used for etfs
 
-XRT Shares Outstanding: 5800
-MDY Shares Outstanding: 39791
-FNDA Shares Outstanding: 150600
-IWB Shares Outstanding: 120100
-IWM Shares Outstanding: 321050
-IJH Shares Outstanding: 1431600
-VTI Shares Outstanding: 1535544
-VBR Shares Outstanding: 151030
-VXF Shares Outstanding: 109414
+```
+python shares_oustanding.py --etf
+
+XRT Shares Outstanding: 5000226
+MDY Shares Outstanding: 41316202
+FNDA Shares Outstanding: 127200000
+IWB Shares Outstanding: 126150000
+IWM Shares Outstanding: 284300000
+IJH Shares Outstanding: 267000000
+VTI Shares Outstanding: 1383502709
+VBR Shares Outstanding: 150493560
+VXF Shares Outstanding: 100462953
 ```
 
-You can also specify tickers instead
+You can also specify any tickers instead, without the `--etf` flag and this will scrape barcharts.com
 ```
 python shares_oustanding.py GME MSFT
 GME Shares Outstanding: 351217
