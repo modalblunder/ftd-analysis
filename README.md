@@ -60,7 +60,21 @@ python shares_outstanding.py
     - Open terminal and run the `pipenv shell` command to run python scripts
 
 # Get Outstanding Shares Data (shares_oustanding.py)
-By default, you can run this script without any parameters/arguments and it will grab data for the following ETF tickers: "XRT", "MDY", "FNDA", "IWB", "IWM", "IJH", "VTI", "VBR", "VXF". The output is in thousands.
+By default, you can run this script without any parameters/arguments and it will grab data for the following ETF tickers: "XRT", "MDY", "FNDA", "IWB", "IWM", "IJH", "VTI", "VBR", "VXF". By default, the data will be pulled from barcharts.
+
+```
+python shares_oustanding.py
+
+XRT Shares Outstanding: 5800000
+MDY Shares Outstanding: 39916000
+FNDA Shares Outstanding: 150600000
+IWB Shares Outstanding: 120000000
+IWM Shares Outstanding: 317850000
+IJH Shares Outstanding: 1431050000
+VTI Shares Outstanding: 1542891000
+VBR Shares Outstanding: 151161000
+VXF Shares Outstanding: 109171000
+```
 
 Note: If you pass in the `--etf` flag, the scraping will be against tipranks.com, but it can only be used for etfs
 
